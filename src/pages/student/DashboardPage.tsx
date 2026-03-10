@@ -20,7 +20,7 @@ export default function DashboardPage() {
                 const [subs, tops, lb] = await Promise.all([
                     subjectService.getAll(),
                     topicService.getAll(),
-                    leaderboardService.getTop(5),
+                    leaderboardService.getTop({ limit: 5 }),
                 ]);
                 setSubjects(subs);
                 setRecentTopics(tops.slice(0, 4));
