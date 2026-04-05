@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import api from '../../api/axios';
 import { 
   CheckCircle2, Trophy, ArrowRight, Loader2, 
-  XCircle, ArrowLeft, HelpCircle, Star, Target
+  XCircle, ArrowLeft, HelpCircle, Star, Target, ClipboardX, LayoutGrid
 } from 'lucide-react';
 import { toast } from 'react-hot-toast';
 
@@ -21,11 +21,14 @@ const StudentQuiz = () => {
 
   const fetchQuestions = async () => {
     try {
+      setLoading(true);
       const res = await api.get(`/tests/questions/?topic=${topicId}`);
-      // JSON strukturang: res.data.data.results
       setQuestions(res.data?.data?.results || []);
-    } catch (err) { toast.error("Testlar yuklanmadi"); }
-    finally { setLoading(false); }
+    } catch (err) { 
+      toast.error("Testlar yuklanmadi"); 
+    } finally { 
+      setLoading(false); 
+    }
   };
 
   const handleSelectOption = (optionId) => {
@@ -41,7 +44,6 @@ const StudentQuiz = () => {
         topic_id: topicId,
         answers: answers
       });
-      // JSON strukturang: res.data.data (Natijalar shu yerda)
       setResult(res.data?.data);
       toast.success("Test yakunlandi!");
     } catch (err) {
@@ -49,44 +51,72 @@ const StudentQuiz = () => {
     } finally { setLoading(false); }
   };
 
-  if (loading && !result) return <div className="flex justify-center p-20"><Loader2 className="animate-spin text-blue-600" /></div>;
-
-  // ── NATIJA SAHIFASI (IXCHAM VA CHIROYLI) ──
-  if (result) return (
-  <div className="max-w-md mx-auto py-10 animate-in zoom-in-95 duration-500 px-4">
-    <div className="bg-white rounded-[35px] border border-slate-100 shadow-2xl overflow-hidden p-8 text-center">
-      <div className={`w-20 h-20 mx-auto rounded-3xl flex items-center justify-center mb-6 shadow-lg ${result.passed ? 'bg-emerald-500 text-white' : 'bg-red-500 text-white'}`}>
-          {result.passed ? <Trophy size={40} /> : <XCircle size={40} />}
-      </div>
-      
-      <h2 className="text-xl font-black italic uppercase tracking-tight text-slate-900">
-          {result.passed ? "Muvaffaqiyatli!" : "Hali imkon bor!"}
-      </h2>
-      <p className="text-slate-400 font-bold mt-2 uppercase text-[9px] tracking-widest">{result.advice}</p>
-
-      <div className="grid grid-cols-2 gap-3 mt-8">
-          <div className="bg-slate-50 p-4 rounded-2xl border border-slate-100 text-center">
-              <p className="text-[10px] font-black text-slate-400 uppercase italic">Natija</p>
-              <p className="text-lg font-black text-slate-800">{result.correct_answers} / {result.total_questions}</p>
-          </div>
-          <div className="bg-slate-50 p-4 rounded-2xl border border-slate-100 text-center">
-              <p className="text-[10px] font-black text-slate-400 uppercase italic">Berilgan ball</p>
-              <p className="text-lg font-black text-blue-600">+{result.points_awarded}</p>
-          </div>
-      </div>
-
-      {/* MANA SHU YERDA YO'LNI TO'G'IRLADIM */}
-      <button 
-          onClick={() => navigate(`/student/subjects/${subjectId}/topics/${topicId}`)} 
-          className="w-full mt-8 py-4 bg-slate-900 text-white rounded-2xl font-black text-[10px] uppercase tracking-widest shadow-xl hover:bg-slate-800 transition-all active:scale-95 italic"
-      >
-          Darsga qaytish
-      </button>
+  // 1. YUKLANISH HOLATI
+  if (loading && !result) return (
+    <div className="min-h-[400px] flex flex-col items-center justify-center gap-4">
+      <Loader2 className="animate-spin text-blue-600" size={40} />
+      <p className="text-[10px] font-black uppercase italic text-slate-400">Testlar tayyorlanmoqda...</p>
     </div>
-  </div>
-);
+  );
 
-  // ── TEST SAVOLLARI ──
+  // 2. TESTLAR MAVJUD BO'LMAGAN HOLAT (SEN AYTGAN QISM)
+  if (!loading && questions.length === 0 && !result) return (
+    <div className="max-w-md mx-auto py-20 px-4 animate-in fade-in zoom-in-95 duration-500">
+      <div className="bg-white rounded-[40px] border border-slate-100 shadow-2xl p-12 text-center space-y-6">
+        <div className="w-24 h-24 bg-slate-50 rounded-[35px] flex items-center justify-center mx-auto border border-slate-100 shadow-inner">
+          <ClipboardX size={45} className="text-slate-300" />
+        </div>
+        <div className="space-y-2">
+          <h2 className="text-xl font-black italic uppercase tracking-tight text-slate-900">Test topilmadi</h2>
+          <p className="text-[10px] font-bold text-slate-400 uppercase italic tracking-widest leading-relaxed">
+            Ushbu mavzu bo'yicha savollar hali qo'shilmagan yoki vaqtincha mavjud emas.
+          </p>
+        </div>
+        <button 
+          onClick={() => navigate(`/student/subjects/${subjectId}/topics/${topicId}`)}
+          className="w-full py-5 bg-blue-600 text-white rounded-[25px] font-black text-[10px] uppercase tracking-[0.2em] italic shadow-xl shadow-blue-100 hover:bg-slate-900 transition-all active:scale-95 flex items-center justify-center gap-3"
+        >
+          <ArrowLeft size={16} /> Ortga qaytish
+        </button>
+      </div>
+    </div>
+  );
+
+  // 3. NATIJA SAHIFASI
+  if (result) return (
+    <div className="max-w-md mx-auto py-10 animate-in zoom-in-95 duration-500 px-4">
+      <div className="bg-white rounded-[35px] border border-slate-100 shadow-2xl overflow-hidden p-8 text-center">
+        <div className={`w-20 h-20 mx-auto rounded-3xl flex items-center justify-center mb-6 shadow-lg ${result.passed ? 'bg-emerald-500 text-white' : 'bg-red-500 text-white'}`}>
+            {result.passed ? <Trophy size={40} /> : <XCircle size={40} />}
+        </div>
+        
+        <h2 className="text-xl font-black italic uppercase tracking-tight text-slate-900">
+            {result.passed ? "Muvaffaqiyatli!" : "Hali imkon bor!"}
+        </h2>
+        <p className="text-slate-400 font-bold mt-2 uppercase text-[9px] tracking-widest">{result.advice}</p>
+
+        <div className="grid grid-cols-2 gap-3 mt-8">
+            <div className="bg-slate-50 p-4 rounded-2xl border border-slate-100 text-center">
+                <p className="text-[10px] font-black text-slate-400 uppercase italic">Natija</p>
+                <p className="text-lg font-black text-slate-800">{result.correct_answers} / {result.total_questions}</p>
+            </div>
+            <div className="bg-slate-50 p-4 rounded-2xl border border-slate-100 text-center">
+                <p className="text-[10px] font-black text-slate-400 uppercase italic">Berilgan ball</p>
+                <p className="text-lg font-black text-blue-600">+{result.points_awarded}</p>
+            </div>
+        </div>
+
+        <button 
+            onClick={() => navigate(`/student/subjects/${subjectId}/topics/${topicId}`)} 
+            className="w-full mt-8 py-4 bg-slate-900 text-white rounded-2xl font-black text-[10px] uppercase tracking-widest shadow-xl hover:bg-blue-600 transition-all active:scale-95 italic"
+        >
+            Darsga qaytish
+        </button>
+      </div>
+    </div>
+  );
+
+  // 4. TEST SAVOLLARI
   const currentQ = questions[currentIdx];
   const selectedOpt = answers.find(a => a.question_id === currentQ?.id)?.selected_option_id;
 

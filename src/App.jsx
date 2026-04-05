@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import { ProtectedRoute } from './routes/ProtectedRoute';
+import { Toaster } from 'react-hot-toast';
 
 // STUDENT COMPONENTS
 import Login from './pages/Login';
@@ -10,6 +11,8 @@ import Subjects from './pages/student/Subjects';
 import SubjectDetail from './pages/student/SubjectDetail';
 import TopicDetail from './pages/student/TopicDetail';
 import StudentQuiz from './pages/student/StudentQuiz';
+import Leaderboard from './pages/student/Leaderboard';
+import ProfileSettings from './pages/student/ProfileSettings';
 
 // ADMIN COMPONENTS (Bularni ham qo'shdik)
 import AdminLayout from './components/admin/AdminLayout';
@@ -18,10 +21,13 @@ import AdminSubjects from './pages/admin/AdminSubjects';
 import AdminGrades from './pages/admin/AdminGrades';
 import AdminTopics from './pages/admin/AdminTopics';
 import AdminQuizzes from './pages/admin/AdminQuizzes';
+import AdminStudents from './pages/admin/AdminStudents';
+import AdminProfile from './pages/admin/AdminProfile';
 
 function App() {
   return (
     <Router>
+      <Toaster position="top-center" reverseOrder={false} />
       <Routes>
         {/* 1. LOGIN */}
         <Route path="/login" element={<Login />} />
@@ -38,6 +44,8 @@ function App() {
           {/* TO'G'RILANGAN YO'L: /student yozish shartmas */}
           <Route path="subjects/:subjectId/topics/:topicId" element={<TopicDetail />} />
           <Route path="subjects/:subjectId/topics/:topicId/quiz" element={<StudentQuiz />} />
+          <Route path="leaderboard" element={<Leaderboard />} />
+          <Route path="profile" element={<ProfileSettings />} />
         </Route>
 
         {/* 3. ADMIN PANEL (Yangi boshlagan qismimiz) */}
@@ -52,6 +60,8 @@ function App() {
           <Route path="grades" element={<AdminGrades />} />
           <Route path="topics" element={<AdminTopics />} />
           <Route path="quizzes" element={<AdminQuizzes />} />
+          <Route path="students" element={<AdminStudents />} />
+          <Route path="settings" element={<AdminProfile />} />
           {/* Kelajakda: grades, topics, students shunday qo'shiladi */}
         </Route>
 
