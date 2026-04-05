@@ -32,6 +32,7 @@ function App() {
         {/* 1. LOGIN */}
         <Route path="/login" element={<Login />} />
         
+        
         {/* 2. STUDENT PANEL (O'sha biz qilgan ko'k dizayn) */}
         <Route path="/student" element={
           <ProtectedRoute allowedRoles={['STUDENT']}>
