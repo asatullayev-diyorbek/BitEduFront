@@ -80,7 +80,7 @@ const AIChat = ({ topicTitle, subjectName, gradeName }) => {
     const genAI = new GoogleGenerativeAI(import.meta.env.VITE_GEMINI_API_KEY);
     const model = genAI.getGenerativeModel({ 
       model: import.meta.env.VITE_GEMINI_MODEL || "gemini-1.5-flash",
-      systemInstruction: `Sen ${gradeName}-sinf o'qituvchisisan. Fan: ${subjectName}. Mavzu: ${topicTitle}. Faqat o'zbek tilida javob ber.`
+      systemInstruction: `Sen ${gradeName}-sinf o'qituvchisisan. Fan: ${subjectName}. Mavzu: ${topicTitle}. Faqat o'zbek tilida javob ber. Javoblaringni qisqa, aniq va tushunarli qilib ber. Keraksiz ma'lumotlarni qo'shma.`
     });
 
     // 2. MUHIM: Gemini tarixni FAQAT 'user' xabari bilan boshlanishini talab qiladi.

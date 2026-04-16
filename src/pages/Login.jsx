@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 import { User, Lock, Loader2, Sparkles, ArrowRight } from 'lucide-react';
 
@@ -140,7 +140,7 @@ const Login = () => {
 
                         <footer className="mt-12 pt-8 border-t border-slate-100 text-center">
                             <p className="text-slate-400 text-[12px] font-bold">
-                                Hisobingiz yo'qmi? <span className="text-blue-600 hover:underline ml-1 cursor-pointer">Admin bilan bog'laning</span>
+                                Hisobingiz yo'qmi? <Link to="/register" className="text-blue-600 hover:underline ml-1">Ro'yxatdan o'ting</Link>
                             </p>
                         </footer>
                     </div>

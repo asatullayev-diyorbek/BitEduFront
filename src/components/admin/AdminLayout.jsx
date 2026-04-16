@@ -3,10 +3,10 @@ import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
 
 import {
-  LayoutDashboard, BookOpen, Users, Settings, 
+  LayoutDashboard, BookOpen, Users, Settings,
   LogOut, Bell, ChevronLeft, ChevronRight,
   ChevronDown, GraduationCap, ClipboardList,
-  Layers, PlusCircle, Search
+  Layers, PlusCircle, Search, Trophy
 } from 'lucide-react';
 
 // ── Avatar Component (Student bilan bir xil, image kalitida) ──────────────
@@ -39,6 +39,7 @@ const ADMIN_MENU = [
   { group: 'NAZORAT', items: [
     { icon: ClipboardList,   label: 'Testlar',    path: '/admin/quizzes' },
     { icon: Users,           label: 'O\'quvchilar',path: '/admin/students' },
+    { icon: Trophy,          label: 'Reyting',    path: '/admin/leaderboard' },
   ]},
   { group: 'TIZIM', items: [
     { icon: Settings,        label: 'Sozlamalar', path: '/admin/settings' },

@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect } from 'react';
+import { createContext, useState, useEffect, useCallback } from 'react';
 import api from '../api/axios';
 
 export const AuthContext = createContext();
@@ -46,8 +46,13 @@ export const AuthProvider = ({ children }) => {
         }
     };
 
+    const clearUser = useCallback(() => {
+        localStorage.clear();
+        setUser(null);
+    }, []);
+
     return (
-        <AuthContext.Provider value={{ user, login, logout, loading }}>
+        <AuthContext.Provider value={{ user, login, logout, clearUser, loading }}>
             {!loading && children}
         </AuthContext.Provider>
     );

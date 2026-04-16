@@ -5,6 +5,7 @@ import { Toaster } from 'react-hot-toast';
 
 // STUDENT COMPONENTS
 import Login from './pages/Login';
+import Register from './pages/Register';
 import StudentLayout from './components/student/StudentLayout';
 import StudentHome from './pages/student/StudentHome';
 import Subjects from './pages/student/Subjects';
@@ -23,14 +24,16 @@ import AdminTopics from './pages/admin/AdminTopics';
 import AdminQuizzes from './pages/admin/AdminQuizzes';
 import AdminStudents from './pages/admin/AdminStudents';
 import AdminProfile from './pages/admin/AdminProfile';
+import AdminLeaderboard from './pages/admin/AdminLeaderboard';
 
 function App() {
   return (
     <Router>
       <Toaster position="top-center" reverseOrder={false} />
       <Routes>
-        {/* 1. LOGIN */}
+        {/* 1. AUTH */}
         <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
         
         
         {/* 2. STUDENT PANEL (O'sha biz qilgan ko'k dizayn) */}
@@ -62,6 +65,7 @@ function App() {
           <Route path="topics" element={<AdminTopics />} />
           <Route path="quizzes" element={<AdminQuizzes />} />
           <Route path="students" element={<AdminStudents />} />
+          <Route path="leaderboard" element={<AdminLeaderboard />} />
           <Route path="settings" element={<AdminProfile />} />
           {/* Kelajakda: grades, topics, students shunday qo'shiladi */}
         </Route>
