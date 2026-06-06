@@ -4,7 +4,7 @@ import { AuthContext } from '../../context/AuthContext';
 import {
   LayoutDashboard, BookOpen, Trophy, User,
   LogOut, Bell, ChevronLeft, ChevronRight,
-  ChevronDown
+  ChevronDown, Gamepad2
 } from 'lucide-react';
 
 // ── Avatar initials helper ─────────────────────────────────────────────────
@@ -46,6 +46,7 @@ const Avatar = ({ user, size = 36, className = '' }) => {
 const MENU = [
   { icon: LayoutDashboard, label: 'Dashboard',  path: '/student' },
   { icon: BookOpen,        label: 'Fanlar',     path: '/student/subjects' },
+  { icon: Gamepad2,        label: "O'yinlar",   path: '/student/games' },
   { icon: Trophy,          label: 'Reyting',    path: '/student/leaderboard' },
   { icon: User,            label: 'Profil',     path: '/student/profile' },
 ];

@@ -6,7 +6,7 @@ import {
   LayoutDashboard, BookOpen, Users, Settings,
   LogOut, Bell, ChevronLeft, ChevronRight,
   ChevronDown, GraduationCap, ClipboardList,
-  Layers, PlusCircle, Search, Trophy
+  Layers, PlusCircle, Search, Trophy, Gamepad2
 } from 'lucide-react';
 
 // ── Avatar Component (Student bilan bir xil, image kalitida) ──────────────
@@ -38,6 +38,7 @@ const ADMIN_MENU = [
   ]},
   { group: 'NAZORAT', items: [
     { icon: ClipboardList,   label: 'Testlar',    path: '/admin/quizzes' },
+    { icon: Gamepad2,        label: 'O\'yinlar',   path: '/admin/games' },
     { icon: Users,           label: 'O\'quvchilar',path: '/admin/students' },
     { icon: Trophy,          label: 'Reyting',    path: '/admin/leaderboard' },
   ]},

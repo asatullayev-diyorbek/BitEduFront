@@ -15,6 +15,14 @@ import StudentQuiz from './pages/student/StudentQuiz';
 import Leaderboard from './pages/student/Leaderboard';
 import ProfileSettings from './pages/student/ProfileSettings';
 
+// GAMES (O'yinlar)
+import GamesHome from './pages/student/games/GamesHome';
+import AnagramList from './pages/student/games/AnagramList';
+import AnagramPlay from './pages/student/games/AnagramPlay';
+import QuizDifficulty from './pages/student/games/QuizDifficulty';
+import QuizList from './pages/student/games/QuizList';
+import QuizPlay from './pages/student/games/QuizPlay';
+
 // ADMIN COMPONENTS (Bularni ham qo'shdik)
 import AdminLayout from './components/admin/AdminLayout';
 import AdminDashboard from './pages/admin/AdminDashboard';
@@ -22,6 +30,7 @@ import AdminSubjects from './pages/admin/AdminSubjects';
 import AdminGrades from './pages/admin/AdminGrades';
 import AdminTopics from './pages/admin/AdminTopics';
 import AdminQuizzes from './pages/admin/AdminQuizzes';
+import AdminGames from './pages/admin/AdminGames';
 import AdminStudents from './pages/admin/AdminStudents';
 import AdminProfile from './pages/admin/AdminProfile';
 import AdminLeaderboard from './pages/admin/AdminLeaderboard';
@@ -50,6 +59,14 @@ function App() {
           <Route path="subjects/:subjectId/topics/:topicId/quiz" element={<StudentQuiz />} />
           <Route path="leaderboard" element={<Leaderboard />} />
           <Route path="profile" element={<ProfileSettings />} />
+
+          {/* GAMES (O'yinlar) */}
+          <Route path="games" element={<GamesHome />} />
+          <Route path="games/anagram" element={<AnagramList />} />
+          <Route path="games/anagram/:id" element={<AnagramPlay />} />
+          <Route path="games/quiz" element={<QuizDifficulty />} />
+          <Route path="games/quiz/:difficulty" element={<QuizList />} />
+          <Route path="games/quiz/play/:id" element={<QuizPlay />} />
         </Route>
 
         {/* 3. ADMIN PANEL (Yangi boshlagan qismimiz) */}
@@ -64,6 +81,7 @@ function App() {
           <Route path="grades" element={<AdminGrades />} />
           <Route path="topics" element={<AdminTopics />} />
           <Route path="quizzes" element={<AdminQuizzes />} />
+          <Route path="games" element={<AdminGames />} />
           <Route path="students" element={<AdminStudents />} />
           <Route path="leaderboard" element={<AdminLeaderboard />} />
           <Route path="settings" element={<AdminProfile />} />
